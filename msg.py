@@ -74,7 +74,7 @@ def get_credentials():
 
 
 ## Get creds, prepare message and send it
-def create_message_and_send(sender, to, subject,  message_text_plain, message_text_html, attached_file):
+def create_message_and_send(sender, to, subject,  message_text_plain, message_text_html):
     credentials = get_credentials()
 
     # Create an httplib2.Http object to handle our HTTP requests, and authorize it using credentials.authorize()

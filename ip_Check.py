@@ -5,18 +5,21 @@ from msg import create_message_and_send
 
 
 def main():
-    ip = get('https://api.ipify.org').text
-    ip_list = check_ip(ip)
-    if ip not in ip_list:
-        to = "jesse56@gmail.com"
-        sender = "j5bot24@gmail.com"
-        subject = "IP Test"
-        message_text_html = ip
-        message_text_plain = ip
-        attached_file = r'C:\Users\Me\Desktop\audio.m4a'
-        create_message_and_send(sender, to, subject, message_text_plain, message_text_html, attached_file)
-    else:
-        sleep(6000)
+    while 0 !=True:
+        ip = get('https://api.ipify.org').text
+        ipstatus = check_ip(ip)
+        if ipstatus is False:
+            print("ip has not changed...zzzz")
+            sleep(28000)
+        else:
+            to = "jesse56@gmail.com"
+            sender = "j5bot24@gmail.com"
+            subject = "Home IP has changed"
+            message_text_html = ip
+            message_text_plain = ip
+            create_message_and_send(sender, to, subject, message_text_plain, message_text_html,)
+            print("email has been sent")
+            sleep(28000)
 
 
 def check_ip(ip):
@@ -30,16 +33,16 @@ def check_ip(ip):
 
     if new_ip not in past_ip:
         past_ip.append(new_ip)
-        print("Your IP has changed to", new_ip)
+        with open("iplog.txt", "w") as f:
+            for new_ip in past_ip:
+                f.write(new_ip + "\n")
+            f.close()
+        return True
     else:
-        print("Your IP has not changed.")
-
-    with open("iplog.txt", "w") as f:
-        for new_ip in past_ip:
-            f.write(new_ip + "\n")
         f.close()
+        return False
 
-    return past_ip
+
 
 
 
